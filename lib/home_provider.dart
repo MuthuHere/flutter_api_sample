@@ -20,9 +20,15 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getUser() async {
-    final response =
-        await http.get('https://jsonplaceholder.typicode.com/users');
+  Future<void> getUser(Map<String, dynamic> input) async {
+    final response = await http.post(
+      'https://jsonplaceholder.typicode.com/users',
+      body: input,
+      headers: {
+
+      }
+    );
+    // final response = await http.get('https://jsonplaceholder.typicode.com/users');
 
     if (response != null && response.body != null) {
       final responseModel = responseModelFromJson(response.body);

@@ -38,7 +38,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<HomeProvider>(context,listen: false).getUser();
+      Map input = {
+        'userId':101,
+        'userName':'Muthu'
+      };
+      Provider.of<HomeProvider>(context,listen: false).getUser(input);
     });
     super.initState();
   }

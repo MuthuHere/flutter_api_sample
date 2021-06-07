@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api_demo/base/base_provider.dart';
+import 'package:flutter_api_demo/repo/auth_repo.dart';
 import 'package:flutter_api_demo/response_model.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class HomeProvider extends ChangeNotifier {
-  bool _isLoading = false;
+class HomeProvider extends BaseProvider {
+  //repos
+  AuthRepo _authRepo = AuthRepo();
   List<ResponseModel> _list;
-
-  bool get isLoading => _isLoading;
-
-  set isLoading(bool value) {
-    _isLoading = value;
-    notifyListeners();
-  }
 
   List<ResponseModel> get list => _list;
 
@@ -20,19 +17,12 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getUser(Map<String, dynamic> input) async {
-    final response = await http.post(
-      'https://jsonplaceholder.typicode.com/users',
-      body: input,
-      headers: {
-
-      }
-    );
-    // final response = await http.get('https://jsonplaceholder.typicode.com/users');
-
-    if (response != null && response.body != null) {
-      final responseModel = responseModelFromJson(response.body);
-      this.list = responseModel;
-    }
+  Future<void> getUser() async {
+    final response = await _authRepo.getUserDetails();
+    response.fold((l) {
+      Get.snackbar('TestApp)', '$l');
+    }, (r) {
+      this.list = r;
+    });
   }
 }

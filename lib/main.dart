@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import 'home_provider.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
           create: (_) => HomeProvider(),
         ),
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         theme: ThemeData(
           primaryColor: Colors.blue,
         ),
@@ -38,11 +39,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Map input = {
-        'userId':101,
-        'userName':'Muthu'
-      };
-      Provider.of<HomeProvider>(context,listen: false).getUser(input);
+      Provider.of<HomeProvider>(context, listen: false).getUser();
     });
     super.initState();
   }

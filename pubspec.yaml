@@ -30,6 +30,12 @@ dependencies:
   cupertino_icons: ^1.0.0
   http: ^0.12.2
   provider: ^4.2.0
+  dartz: ^0.9.1
+  connectivity: ^0.4.5+2
+  get: ^3.2.1
+
+
+
 
 dev_dependencies:
   flutter_test:
